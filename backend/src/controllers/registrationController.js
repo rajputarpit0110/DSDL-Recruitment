@@ -1,8 +1,17 @@
+const mongoose = require('mongoose');
 const Registration = require('../models/Registration');
 const { generateRegistrationId } = require('../utils/generateId');
 const { BRANCH_OPTIONS, INTEREST_OPTIONS, WHY_JOIN_MIN_LENGTH, WHY_JOIN_MAX_LENGTH } = require('../config/recruitmentConfig');
 
 exports.submitRegistration = async (req, res) => {
+  // Guard: ensure database is connected before attempting any write
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      message: 'Registration service is temporarily unavailable. Please try again in a few moments.'
+    });
+  }
+
   try {
     const {
       fullName,

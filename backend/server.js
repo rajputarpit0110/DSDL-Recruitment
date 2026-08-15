@@ -10,36 +10,24 @@ async function startServer() {
   try {
     console.log('Connecting to MongoDB...');
     await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000
+      serverSelectionTimeoutMS: 10000
     });
     console.log('✅ Connected to MongoDB successfully.');
+
+    // Monitor connection health
+    mongoose.connection.on('disconnected', () => {
+      console.warn('⚠️  MongoDB disconnected. Mongoose will attempt to reconnect automatically.');
+    });
+    mongoose.connection.on('reconnected', () => {
+      console.log('✅ MongoDB reconnected successfully.');
+    });
+    mongoose.connection.on('error', (err) => {
+      console.error('❌ MongoDB connection error:', err.message);
+    });
   } catch (error) {
     console.error('❌ DATABASE CONNECTION ERROR:', error.message);
-
-    // In non-production environments, try an in-memory MongoDB fallback
-    let dbConnected = false;
-    if (process.env.NODE_ENV !== 'production') {
-      try {
-        console.log('Attempting to start in-memory MongoDB for development...');
-        const { MongoMemoryServer } = require('mongodb-memory-server');
-        const mongod = await MongoMemoryServer.create();
-        const memoryUri = mongod.getUri();
-        await mongoose.connect(memoryUri);
-        console.log('✅ Connected to in-memory MongoDB.');
-        dbConnected = true;
-      } catch (memErr) {
-        console.error('❌ Failed to start in-memory MongoDB fallback:', memErr.message);
-        console.warn('Continuing without a database connection (development only).');
-        dbConnected = false;
-      }
-    } else {
-      console.error('The server will not start without a persistent MongoDB connection.');
-      process.exit(1);
-    }
-    // If not connected to any DB, continue in dev mode but skip DB-dependent startup tasks
-    if (!dbConnected) {
-      console.warn('Starting server without database. Some features will be disabled.');
-    }
+    console.error('The server will not start without a database connection.');
+    process.exit(1);
   }
 
   try {
@@ -50,9 +38,34 @@ async function startServer() {
       console.warn('Skipping admin seeding because database is not connected.');
     }
 
-    app.listen(PORT, () => {
-      console.log(`🚀 DSDL Recruitment Server running on http://localhost:${PORT}`);
-    });
+    // Start server with port-fallback logic to avoid crashes when a port is unavailable
+    const maxPortAttempts = 5;
+    let attempt = 0;
+    let listenPort = Number(PORT) || 5000;
+
+    const startListening = (port) => {
+      const server = app.listen(port, () => {
+        console.log(`🚀 DSDL Recruitment Server running on http://localhost:${port}`);
+      });
+
+      server.on('error', (err) => {
+        if (err && (err.code === 'EADDRINUSE' || err.code === 'EPERM')) {
+          console.warn(`Port ${port} unavailable (${err.code}). Trying next port...`);
+          attempt += 1;
+          if (attempt <= maxPortAttempts) {
+            startListening(port + 1);
+          } else {
+            console.error('Failed to bind server to any port after multiple attempts.');
+            process.exit(1);
+          }
+        } else {
+          console.error('Server listen error:', err);
+          process.exit(1);
+        }
+      });
+    };
+
+    startListening(listenPort);
   } catch (err) {
     console.error('❌ Server startup error:', err.message);
     process.exit(1);

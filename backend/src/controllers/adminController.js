@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
@@ -45,6 +46,10 @@ function buildFilterQuery(queryParams) {
 }
 
 exports.loginAdmin = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const { username, password } = req.body;
 
@@ -105,6 +110,10 @@ exports.getAdminMe = (req, res) => {
 };
 
 exports.getRegistrations = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
     const limit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 25));
@@ -140,6 +149,10 @@ exports.getRegistrations = async (req, res) => {
 };
 
 exports.getRegistrationById = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const registration = await Registration.findById(req.params.id);
     if (!registration) {
@@ -152,6 +165,10 @@ exports.getRegistrationById = async (req, res) => {
 };
 
 exports.updateRegistrationStatus = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const { status } = req.body;
     if (!status || !STATUS_OPTIONS.includes(status)) {
@@ -184,6 +201,10 @@ exports.updateRegistrationStatus = async (req, res) => {
 };
 
 exports.deleteRegistration = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const registration = await Registration.findByIdAndDelete(req.params.id);
     if (!registration) {
@@ -196,6 +217,10 @@ exports.deleteRegistration = async (req, res) => {
 };
 
 exports.exportRegistrations = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const format = (req.query.format || 'excel').toLowerCase();
     const filter = buildFilterQuery(req.query);
@@ -226,6 +251,10 @@ exports.exportRegistrations = async (req, res) => {
 };
 
 exports.getAnalytics = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const totalRegistrations = await Registration.countDocuments();
 
@@ -284,6 +313,10 @@ exports.getAnalytics = async (req, res) => {
 };
 
 exports.syncGoogleSheets = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Service unavailable: database not connected.' });
+  }
+
   try {
     const result = await syncToGoogleSheets();
     if (!result.configured) {
