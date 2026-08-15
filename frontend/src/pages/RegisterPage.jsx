@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { 
+import {
   Star, CheckCircle2, AlertCircle, ArrowLeft, Loader2, MessageSquare, ExternalLink, ShieldCheck
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import api from '../services/api';
-import { 
-  BRANCH_OPTIONS, INTEREST_OPTIONS, TECHNICAL_RATING_LABELS, DEFAULT_WHATSAPP_GROUP_URL 
+import {
+  BRANCH_OPTIONS, INTEREST_OPTIONS, TECHNICAL_RATING_LABELS, DEFAULT_WHATSAPP_GROUP_URL
 } from '../config/recruitmentConfig';
 import { saveDraft, loadDraft, clearDraft } from '../utils/draftStorage';
 
@@ -159,10 +159,10 @@ export default function RegisterPage() {
 
       <main className="flex-grow py-8 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          
+
           {/* Back button */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-dsdl-600 mb-6 transition-colors gap-1.5"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -171,7 +171,7 @@ export default function RegisterPage() {
 
           {/* Form Card Header */}
           <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 mb-8">
-            
+
             <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-100">
               <div className="flex items-center space-x-3">
                 <img src="/assets/dsdl-logo.png" alt="DSDL Logo" className="h-10 w-auto" />
@@ -205,7 +205,7 @@ export default function RegisterPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              
+
               {/* Field 1: Full Name */}
               <div>
                 <label htmlFor="fullName" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
@@ -214,14 +214,13 @@ export default function RegisterPage() {
                 <input
                   id="fullName"
                   type="text"
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="e.g. Arpit Rajput"
                   value={formData.fullName}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${
-                    errors.fullName 
-                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.fullName
+                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                  }`}
+                    }`}
                 />
                 {errors.fullName && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.fullName}</p>}
               </div>
@@ -234,14 +233,13 @@ export default function RegisterPage() {
                 <input
                   id="rollNumber"
                   type="text"
-                  placeholder="e.g. 2400290100001"
+                  placeholder="e.g. 202401100200084"
                   value={formData.rollNumber}
                   onChange={(e) => handleInputChange('rollNumber', e.target.value.toUpperCase())}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${
-                    errors.rollNumber 
-                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.rollNumber
+                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                  }`}
+                    }`}
                 />
                 {errors.rollNumber && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.rollNumber}</p>}
               </div>
@@ -257,11 +255,10 @@ export default function RegisterPage() {
                   placeholder="e.g. student.24xxxx@kiet.edu"
                   value={formData.collegeEmail}
                   onChange={(e) => handleInputChange('collegeEmail', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${
-                    errors.collegeEmail 
-                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.collegeEmail
+                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                  }`}
+                    }`}
                 />
                 <p className="mt-1 text-[11px] text-slate-500">Official KIET domain ending with @kiet.edu</p>
                 {errors.collegeEmail && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.collegeEmail}</p>}
@@ -283,11 +280,10 @@ export default function RegisterPage() {
                     placeholder="9876543210"
                     value={formData.phoneNumber}
                     onChange={(e) => handleInputChange('phoneNumber', e.target.value.replace(/\D/g, ''))}
-                    className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${
-                      errors.phoneNumber 
-                        ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                    className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.phoneNumber
+                        ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                         : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                    }`}
+                      }`}
                   />
                 </div>
                 {errors.phoneNumber && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.phoneNumber}</p>}
@@ -302,11 +298,10 @@ export default function RegisterPage() {
                   id="branch"
                   value={formData.branch}
                   onChange={(e) => handleInputChange('branch', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium bg-white transition-all focus:outline-none focus:ring-2 ${
-                    errors.branch 
-                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium bg-white transition-all focus:outline-none focus:ring-2 ${errors.branch
+                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                  }`}
+                    }`}
                 >
                   <option value="">-- Choose Branch --</option>
                   {BRANCH_OPTIONS.map((opt) => (
@@ -322,7 +317,7 @@ export default function RegisterPage() {
                   Which areas are you interested in? <span className="text-rose-500">*</span>
                 </label>
                 <p className="text-[11px] text-slate-500 mb-3">Select one or multiple domains you'd like to explore:</p>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {INTEREST_OPTIONS.map((interest) => {
                     const isSelected = formData.interests.includes(interest);
@@ -331,11 +326,10 @@ export default function RegisterPage() {
                         key={interest}
                         type="button"
                         onClick={() => toggleInterest(interest)}
-                        className={`inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
-                          isSelected
+                        className={`inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${isSelected
                             ? 'bg-dsdl-600 text-white shadow-sm ring-2 ring-dsdl-600/30'
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
-                        }`}
+                          }`}
                       >
                         {isSelected ? (
                           <CheckCircle2 className="w-3.5 h-3.5" />
@@ -355,7 +349,7 @@ export default function RegisterPage() {
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   How would you rate your technical knowledge? <span className="text-rose-500">*</span>
                 </label>
-                
+
                 <div className="flex items-center space-x-2 my-2">
                   {[1, 2, 3, 4, 5].map((star) => {
                     const active = star <= formData.technicalRating;
@@ -387,9 +381,8 @@ export default function RegisterPage() {
                   <label htmlFor="whyJoin" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                     Why do you want to join DSDL? <span className="text-rose-500">*</span>
                   </label>
-                  <span className={`text-xs font-semibold ${
-                    formData.whyJoin.trim().length > 500 ? 'text-rose-600' : 'text-slate-400'
-                  }`}>
+                  <span className={`text-xs font-semibold ${formData.whyJoin.trim().length > 500 ? 'text-rose-600' : 'text-slate-400'
+                    }`}>
                     {formData.whyJoin.trim().length} / 500
                   </span>
                 </div>
@@ -399,11 +392,10 @@ export default function RegisterPage() {
                   placeholder="Tell us what motivates you to join DSDL, your learning goals, or any projects you'd love to work on..."
                   value={formData.whyJoin}
                   onChange={(e) => handleInputChange('whyJoin', e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${
-                    errors.whyJoin 
-                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200' 
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.whyJoin
+                      ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
-                  }`}
+                    }`}
                 />
                 {errors.whyJoin && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.whyJoin}</p>}
               </div>
