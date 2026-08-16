@@ -137,25 +137,49 @@ export default function AdminDashboardPage({ admin, onLogout }) {
   const handleExport = async (format) => {
     setExporting(true);
     try {
-      const params = new URLSearchParams({
+      const params = {
         format,
-        search: search.trim() || '',
-        branch: selectedBranch || '',
-        rating: selectedRating || '',
-        interest: selectedInterest || '',
-        status: selectedStatus || ''
+        search: search.trim() || undefined,
+        branch: selectedBranch || undefined,
+        rating: selectedRating || undefined,
+        interest: selectedInterest || undefined,
+        status: selectedStatus || undefined
+      };
+
+      // Use the axios instance (carries Authorization header) with responseType:'blob'
+      // so the auth-protected /admin/export route is reached correctly.
+      // window.open() cannot send headers — it would get a 401.
+      const response = await api.get('/admin/export', {
+        params,
+        responseType: 'blob'
       });
 
-      const API_BASE = import.meta.env.VITE_API_URL || '/api';
-      const exportUrl = `${API_BASE}/admin/export?${params.toString()}`;
-      window.open(exportUrl, '_blank');
-      setActionAlert({ type: 'success', message: `Exporting ${format.toUpperCase()} data...` });
+      const ext = format === 'csv' ? 'csv' : 'xlsx';
+      const mimeType = format === 'csv'
+        ? 'text/csv'
+        : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const filename = `DSDL_Registrations_${timestamp}.${ext}`;
+
+      const blob = new Blob([response], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      setActionAlert({ type: 'success', message: `${filename} downloaded successfully.` });
     } catch (err) {
-      setActionAlert({ type: 'error', message: 'Export request failed.' });
+      setActionAlert({ type: 'error', message: err.message || 'Export failed. Please try again.' });
     } finally {
       setExporting(false);
     }
   };
+
 
   // Google Sheets Sync Handler
   const handleGoogleSheetsSync = async () => {

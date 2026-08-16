@@ -52,7 +52,13 @@ if (_savedToken) {
 
 // Response Interceptor — differentiate error types for meaningful user messages
 api.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    // For file downloads (blob responseType), return the raw data — not response.data wrapper
+    if (response.config?.responseType === 'blob') {
+      return response.data;
+    }
+    return response.data;
+  },
   (error) => {
     // No response means browser blocked the request (CORS, server offline, network failure)
     if (!error.response) {
