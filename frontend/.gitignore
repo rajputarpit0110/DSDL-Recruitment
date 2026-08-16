@@ -1,0 +1,27 @@
+# DSDL Recruitment Website - frontend .gitignore
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / dev output
+dist/
+build/
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+
+# Cache and temp
+.cache/
+tmp/
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
