@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Lock, User, Loader2, ArrowLeft, AlertCircle } from 'lucide-react';
-import api from '../services/api';
+import api, { setAuthToken } from '../services/api';
 
 export default function AdminLoginPage({ onLoginSuccess }) {
   const navigate = useNavigate();
@@ -27,6 +27,9 @@ export default function AdminLoginPage({ onLoginSuccess }) {
       });
 
       if (response.success) {
+        // Store JWT in sessionStorage + attach as Authorization header for all future requests.
+        // This is required for cross-origin production (cookie is blocked by modern browsers).
+        setAuthToken(response.token);
         if (onLoginSuccess) onLoginSuccess(response.admin);
         navigate('/admin/dashboard', { replace: true });
       }

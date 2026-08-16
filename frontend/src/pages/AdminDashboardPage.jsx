@@ -4,7 +4,7 @@ import {
   Users, Calendar, Star, Award, Search, Filter, Download, RefreshCw, LogOut, 
   ChevronLeft, ChevronRight, Eye, Trash2, CheckCircle, Clock, Copy, X, AlertCircle, FileSpreadsheet, Layers
 } from 'lucide-react';
-import api from '../services/api';
+import api, { setAuthToken } from '../services/api';
 import { BRANCH_OPTIONS, INTEREST_OPTIONS, STATUS_OPTIONS } from '../config/recruitmentConfig';
 
 // Lazy load heavy analytics component
@@ -181,6 +181,7 @@ export default function AdminDashboardPage({ admin, onLogout }) {
     } catch (err) {
       // Logout clean-up regardless of response
     }
+    setAuthToken(null); // Clear JWT from sessionStorage and Authorization header
     if (onLogout) onLogout();
     navigate('/admin/login', { replace: true });
   };

@@ -18,12 +18,37 @@ console.log('[DSDL] API base URL:', API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true, // Enables HttpOnly cookie transmission
+  withCredentials: true, // Enables HttpOnly cookie transmission (localhost)
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
+// ─── Token-based auth for cross-origin production deployments ─────────────────
+// Frontend (dsdl-recruitment1.onrender.com) and backend (dsdl-recruitment-backend-3.onrender.com)
+// are cross-origin. Modern browsers block cross-site cookies even with SameSite=None.
+// Solution: store the JWT returned in the login response body in sessionStorage
+// and attach it as Authorization: Bearer on every request.
+// The backend auth middleware already accepts both cookies AND Authorization header.
+
+export function setAuthToken(token) {
+  if (token) {
+    sessionStorage.setItem('dsdl_admin_token', token);
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    sessionStorage.removeItem('dsdl_admin_token');
+    delete api.defaults.headers.common['Authorization'];
+  }
+}
+
+// On module load — restore token from sessionStorage so page refresh works.
+// This runs before App.jsx mounts, so checkAuth() on /admin/me will have the header ready.
+const _savedToken = sessionStorage.getItem('dsdl_admin_token');
+if (_savedToken) {
+  api.defaults.headers.common['Authorization'] = `Bearer ${_savedToken}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 // Response Interceptor — differentiate error types for meaningful user messages
 api.interceptors.response.use(
@@ -61,3 +86,4 @@ api.interceptors.response.use(
 );
 
 export default api;
+
