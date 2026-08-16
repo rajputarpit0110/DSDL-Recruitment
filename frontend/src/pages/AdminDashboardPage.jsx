@@ -146,7 +146,8 @@ export default function AdminDashboardPage({ admin, onLogout }) {
         status: selectedStatus || ''
       });
 
-      const exportUrl = `${import.meta.env.VITE_API_URL || '/api'}/admin/export?${params.toString()}`;
+      const API_BASE = import.meta.env.VITE_API_URL || '/api';
+      const exportUrl = `${API_BASE}/admin/export?${params.toString()}`;
       window.open(exportUrl, '_blank');
       setActionAlert({ type: 'success', message: `Exporting ${format.toUpperCase()} data...` });
     } catch (err) {

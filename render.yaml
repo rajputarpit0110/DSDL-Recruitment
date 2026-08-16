@@ -13,7 +13,7 @@ services:
       - key: PORT
         value: 5000
       - key: FRONTEND_URL
-        value: https://dsdl-recruitment.onrender.com
+        value: https://dsdl-recruitment1.onrender.com
       - key: ALLOWED_EMAIL_DOMAIN
         value: kiet.edu
       # ── Sensitive values: set manually in the Render dashboard ──
@@ -40,7 +40,7 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        value: https://dsdl-recruitment-backend.onrender.com/api
+        value: https://dsdl-recruitment-backend-3.onrender.com/api
       # ── Optional social links — set in Render dashboard ──
       - key: VITE_WHATSAPP_GROUP_URL
         sync: false
