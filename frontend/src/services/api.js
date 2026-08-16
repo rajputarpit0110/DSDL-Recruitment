@@ -77,14 +77,16 @@ api.interceptors.response.use(
       message = serverMessage || 'You have already registered using this roll number or college email.';
     } else if (status === 400) {
       message = serverMessage || 'Please check your inputs and try again.';
+    } else if (status === 401) {
+      message = serverMessage || 'Unauthorized. Please log in again.';
     } else if (status === 429) {
-      message = 'Too many requests. Please wait a few minutes and try again.';
+      message = serverMessage || 'Too many requests. Please wait a few minutes and try again.';
     } else if (status === 503) {
-      message = serverMessage || 'Registration service is temporarily unavailable. Please try again in a moment.';
+      message = serverMessage || 'Service temporarily unavailable. Please try again in a moment.';
     } else if (status >= 500) {
-      message = 'Something went wrong while submitting your application. Please try again.';
+      message = serverMessage || 'An unexpected server error occurred. Please try again.';
     } else {
-      message = serverMessage || 'Registration failed. Please try again.';
+      message = serverMessage || 'Request failed. Please try again.';
     }
 
     return Promise.reject({ status, message, data: error.response?.data });
