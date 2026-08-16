@@ -4,8 +4,8 @@ const { BRANCH_OPTIONS, INTEREST_OPTIONS, STATUS_OPTIONS, WHY_JOIN_MIN_LENGTH, W
 const statusHistorySchema = new mongoose.Schema({
   status: {
     type: String,
-    enum: STATUS_OPTIONS,
     required: true
+    // No enum here — controller validates against STATUS_OPTIONS before saving
   },
   changedAt: {
     type: Date,
@@ -89,9 +89,11 @@ const registrationSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: STATUS_OPTIONS,
     default: 'Registered',
     index: true
+    // No enum here — controller validates against STATUS_OPTIONS before saving.
+    // Keeping enum in schema causes ValidationErrors on save when STATUS_OPTIONS
+    // changes but the running server hasn't restarted yet.
   },
   statusHistory: [statusHistorySchema]
 }, {

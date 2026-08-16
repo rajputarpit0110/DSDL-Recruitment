@@ -176,7 +176,7 @@ exports.updateRegistrationStatus = async (req, res) => {
   try {
     const { status } = req.body;
     if (!status || !STATUS_OPTIONS.includes(status)) {
-      return res.status(400).json({ success: false, message: 'Invalid status value.' });
+      return res.status(400).json({ success: false, message: `Invalid status value "${status}". Valid options: ${STATUS_OPTIONS.join(', ')}` });
     }
 
     const registration = await Registration.findById(req.params.id);
@@ -191,7 +191,9 @@ exports.updateRegistrationStatus = async (req, res) => {
       changedBy: req.admin?.username || 'Admin'
     });
 
-    await registration.save();
+    // validateBeforeSave: false — controller already validated status above.
+    // Prevents stale Mongoose schema enum from blocking valid status values.
+    await registration.save({ validateBeforeSave: false });
 
     return res.status(200).json({
       success: true,
@@ -199,10 +201,11 @@ exports.updateRegistrationStatus = async (req, res) => {
       registration
     });
   } catch (error) {
-    console.error('Update Status Error:', error);
-    return res.status(500).json({ success: false, message: 'Failed to update application status.' });
+    console.error('Update Status Error:', error.message || error);
+    return res.status(500).json({ success: false, message: `Failed to update status: ${error.message}` });
   }
 };
+
 
 exports.deleteRegistration = async (req, res) => {
   if (mongoose.connection.readyState !== 1) {
