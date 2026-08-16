@@ -26,6 +26,10 @@ export default function RegisterPage() {
     whatsappConfirmedByUser: false
   });
 
+  // "Other" custom text fields — kept separate from formData
+  const [otherBranch, setOtherBranch] = useState('');
+  const [otherInterest, setOtherInterest] = useState('');
+
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState('');
@@ -58,6 +62,8 @@ export default function RegisterPage() {
     let updated;
     if (formData.interests.includes(interest)) {
       updated = formData.interests.filter(i => i !== interest);
+      // Clear the custom text if "Other" is being deselected
+      if (interest === 'Other') setOtherInterest('');
     } else {
       updated = [...formData.interests, interest];
     }
@@ -91,10 +97,14 @@ export default function RegisterPage() {
 
     if (!formData.branch) {
       newErrors.branch = 'Please select your branch.';
+    } else if (formData.branch === 'Other' && !otherBranch.trim()) {
+      newErrors.branch = 'Please specify your branch.';
     }
 
     if (!formData.interests || formData.interests.length === 0) {
       newErrors.interests = 'Please select at least one interest area.';
+    } else if (formData.interests.includes('Other') && !otherInterest.trim()) {
+      newErrors.interests = 'Please specify your other interest area.';
     }
 
     if (!formData.technicalRating) {
@@ -112,6 +122,26 @@ export default function RegisterPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Build final submission payload — replace "Other" with the custom typed text
+  const buildPayload = () => {
+    const finalBranch = formData.branch === 'Other' && otherBranch.trim()
+      ? otherBranch.trim()
+      : formData.branch;
+
+    const finalInterests = formData.interests.map(i =>
+      i === 'Other' && otherInterest.trim() ? otherInterest.trim() : i
+    );
+
+    return {
+      ...formData,
+      branch: finalBranch,
+      interests: finalInterests,
+      rollNumber: formData.rollNumber.trim().toUpperCase(),
+      collegeEmail: formData.collegeEmail.trim().toLowerCase(),
+      phoneNumber: formData.phoneNumber.trim().replace(/\D/g, '')
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (submitting) return;
@@ -126,12 +156,7 @@ export default function RegisterPage() {
     setServerError('');
 
     try {
-      const response = await api.post('/registrations', {
-        ...formData,
-        rollNumber: formData.rollNumber.trim().toUpperCase(),
-        collegeEmail: formData.collegeEmail.trim().toLowerCase(),
-        phoneNumber: formData.phoneNumber.trim().replace(/\D/g, '')
-      });
+      const response = await api.post('/registrations', buildPayload());
 
       if (response.success) {
         clearDraft(); // Clear draft on successful submit
@@ -297,7 +322,10 @@ export default function RegisterPage() {
                 <select
                   id="branch"
                   value={formData.branch}
-                  onChange={(e) => handleInputChange('branch', e.target.value)}
+                  onChange={(e) => {
+                    handleInputChange('branch', e.target.value);
+                    if (e.target.value !== 'Other') setOtherBranch('');
+                  }}
                   className={`w-full px-4 py-3 rounded-xl border text-sm font-medium bg-white transition-all focus:outline-none focus:ring-2 ${errors.branch
                       ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
                       : 'border-slate-200 focus:border-dsdl-500 focus:ring-dsdl-100'
@@ -308,6 +336,28 @@ export default function RegisterPage() {
                     <option key={opt} value={opt}>{opt}</option>
                   ))}
                 </select>
+
+                {/* "Other" branch text input — shown only when Other is selected */}
+                {formData.branch === 'Other' && (
+                  <div className="mt-2">
+                    <input
+                      id="otherBranch"
+                      type="text"
+                      autoFocus
+                      placeholder="Please specify your branch..."
+                      value={otherBranch}
+                      onChange={(e) => {
+                        setOtherBranch(e.target.value);
+                        if (errors.branch) setErrors(prev => ({ ...prev, branch: '' }));
+                      }}
+                      className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.branch
+                          ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
+                          : 'border-dsdl-300 bg-dsdl-50/40 focus:border-dsdl-500 focus:ring-dsdl-100'
+                        }`}
+                    />
+                  </div>
+                )}
+
                 {errors.branch && <p className="mt-1 text-xs text-rose-600 font-medium">{errors.branch}</p>}
               </div>
 
@@ -341,6 +391,28 @@ export default function RegisterPage() {
                     );
                   })}
                 </div>
+
+                {/* "Other" interest text input — shown only when Other chip is selected */}
+                {formData.interests.includes('Other') && (
+                  <div className="mt-3">
+                    <input
+                      id="otherInterest"
+                      type="text"
+                      autoFocus
+                      placeholder="Please specify your interest area..."
+                      value={otherInterest}
+                      onChange={(e) => {
+                        setOtherInterest(e.target.value);
+                        if (errors.interests) setErrors(prev => ({ ...prev, interests: '' }));
+                      }}
+                      className={`w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all focus:outline-none focus:ring-2 ${errors.interests
+                          ? 'border-rose-300 bg-rose-50/30 focus:ring-rose-200'
+                          : 'border-dsdl-300 bg-dsdl-50/40 focus:border-dsdl-500 focus:ring-dsdl-100'
+                        }`}
+                    />
+                  </div>
+                )}
+
                 {errors.interests && <p className="mt-2 text-xs text-rose-600 font-medium">{errors.interests}</p>}
               </div>
 

@@ -59,18 +59,19 @@ exports.submitRegistration = async (req, res) => {
       });
     }
 
-    // Branch validation
-    if (!branch || !BRANCH_OPTIONS.includes(branch)) {
-      return res.status(400).json({ success: false, message: 'Please select a valid branch.' });
+    // Branch validation — allow any non-empty string; standard options are the common choices
+    // but a custom value entered via the "Other" text box is also valid.
+    if (!branch || !branch.trim()) {
+      return res.status(400).json({ success: false, message: 'Please select or specify your branch.' });
     }
 
-    // Interest options validation
+    // Interest options validation — accept standard options OR a custom string (typed in "Other" box)
     if (!interests || !Array.isArray(interests) || interests.length === 0) {
       return res.status(400).json({ success: false, message: 'Please select at least one interest area.' });
     }
-    const invalidInterests = interests.filter(i => !INTEREST_OPTIONS.includes(i));
+    const invalidInterests = interests.filter(i => !i || !i.trim() || i.trim().length < 2);
     if (invalidInterests.length > 0) {
-      return res.status(400).json({ success: false, message: 'Invalid interest area selected.' });
+      return res.status(400).json({ success: false, message: 'Please provide a valid interest area.' });
     }
 
     // Technical rating validation
