@@ -1,0 +1,54 @@
+services:
+  # ─── Backend API (Node/Express) ────────────────────────────────────────────
+  - type: web
+    name: dsdl-recruitment-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: FRONTEND_URL
+        value: https://dsdl-recruitment.onrender.com
+      - key: ALLOWED_EMAIL_DOMAIN
+        value: kiet.edu
+      # ── Sensitive values: set manually in the Render dashboard ──
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: GOOGLE_SHEETS_ID
+        sync: false
+      - key: GOOGLE_SERVICE_ACCOUNT_EMAIL
+        sync: false
+      - key: GOOGLE_PRIVATE_KEY
+        sync: false
+
+  # ─── Frontend Static Site (Vite/React) ────────────────────────────────────
+  - type: static
+    name: dsdl-recruitment
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://dsdl-recruitment-backend.onrender.com/api
+      # ── Optional social links — set in Render dashboard ──
+      - key: VITE_WHATSAPP_GROUP_URL
+        sync: false
+      - key: VITE_INSTAGRAM_URL
+        sync: false
+    routes:
+      # SPA fallback — serves index.html for all routes so React Router works
+      # on direct navigation and browser refresh (/register, /admin/login, etc.)
+      - type: rewrite
+        source: /*
+        destination: /index.html
