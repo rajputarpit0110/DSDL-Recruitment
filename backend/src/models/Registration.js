@@ -54,17 +54,17 @@ const registrationSchema = new mongoose.Schema({
   branch: {
     type: String,
     required: [true, 'Branch selection is required'],
-    enum: {
-      values: BRANCH_OPTIONS,
-      message: '{VALUE} is not a supported branch'
-    },
+    // No enum — custom values typed in the "Other" branch text box are accepted.
+    // Controller validates before save; Mongoose enum would block custom text.
     index: true
   },
   interests: {
     type: [String],
     validate: {
       validator: function(val) {
-        return Array.isArray(val) && val.length > 0 && val.every(item => INTEREST_OPTIONS.includes(item));
+        // Accept any non-empty string — custom "Other" values are allowed.
+        // Controller validates presence & minimum length before save.
+        return Array.isArray(val) && val.length > 0 && val.every(item => typeof item === 'string' && item.trim().length > 0);
       },
       message: 'Please select at least one valid interest area'
     }
