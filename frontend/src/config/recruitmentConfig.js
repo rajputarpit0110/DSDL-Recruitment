@@ -2,37 +2,36 @@ export const RECRUITMENT_YEAR = 2026;
 
 export const BRANCH_OPTIONS = [
   "CSE",
+  "CS",
   "CSE AI/ML",
-  "CSE Data Science",
   "CSE AI",
+  "CSE Data Science",
   "IT",
+  "Cybersecurity",
+  "CSIT",
   "ECE",
   "EEE",
   "ME",
-  "CE",
   "Other"
 ];
 
 export const INTEREST_OPTIONS = [
   "Web Development",
+  "DSA / Competitive Programming",
   "App Development",
   "AI / ML",
   "Data Science",
-  "Competitive Programming",
-  "Cyber Security",
+  "Content & Social Media",
+  "Event Management",
   "UI/UX",
-  "Cloud / DevOps",
-  "IoT",
-  "Blockchain",
   "Other"
 ];
 
 export const STATUS_OPTIONS = [
   "Registered",
-  "Shortlisted",
+  "Under Review",
   "Selected",
-  "Rejected",
-  "Contacted"
+  "Rejected"
 ];
 
 export const TECHNICAL_RATING_LABELS = {
