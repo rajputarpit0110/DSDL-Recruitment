@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// VITE_API_URL must point to the backend root WITH /api suffix.
+// e.g. https://dsdl-recruitment-backend-3.onrender.com/api
+//
+// Guard: if the env var is set to the bare origin (without /api), append it
+// automatically so requests always resolve to the correct path.
+const rawEnvUrl = import.meta.env.VITE_API_URL;
+const API_BASE_URL = rawEnvUrl
+  ? rawEnvUrl.replace(/\/+$/, '').endsWith('/api')
+    ? rawEnvUrl.replace(/\/+$/, '')          // already has /api — just strip trailing slash
+    : rawEnvUrl.replace(/\/+$/, '') + '/api' // bare origin — append /api
+  : '/api'; // no env var set — fall back to Vite dev-server proxy
+
+// Build-time log: visible in browser DevTools → Console on every page load.
+// Remove this line once production URLs are confirmed working.
+console.log('[DSDL] API base URL:', API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -9,6 +23,7 @@ const api = axios.create({
     'Content-Type': 'application/json'
   }
 });
+
 
 // Response Interceptor — differentiate error types for meaningful user messages
 api.interceptors.response.use(
