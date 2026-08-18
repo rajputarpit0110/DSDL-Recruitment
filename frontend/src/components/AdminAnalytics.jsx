@@ -25,7 +25,9 @@ export default function AdminAnalytics({ analytics }) {
                 <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} interval={0} angle={-30} textAnchor="end" />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} allowDecimals={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', border: 'none', color: '#fff', fontSize: '12px' }} 
+                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155', color: '#f8fafc', fontSize: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)' }} 
+                  itemStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                  labelStyle={{ color: '#94a3b8', fontWeight: 600, marginBottom: '2px' }}
                 />
                 <Bar dataKey="count" fill="#0c8ce9" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -48,7 +50,9 @@ export default function AdminAnalytics({ analytics }) {
                 <XAxis dataKey="rating" tick={{ fontSize: 11, fill: '#64748b' }} />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} allowDecimals={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', border: 'none', color: '#fff', fontSize: '12px' }} 
+                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155', color: '#f8fafc', fontSize: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)' }} 
+                  itemStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                  labelStyle={{ color: '#94a3b8', fontWeight: 600, marginBottom: '2px' }}
                 />
                 <Bar dataKey="count" fill="#f59e0b" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -83,7 +87,9 @@ export default function AdminAnalytics({ analytics }) {
                   ))}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', border: 'none', color: '#fff', fontSize: '12px' }} 
+                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #334155', color: '#f8fafc', fontSize: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)' }} 
+                  itemStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                  labelStyle={{ color: '#94a3b8', fontWeight: 600, marginBottom: '2px' }}
                 />
               </PieChart>
             </ResponsiveContainer>

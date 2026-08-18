@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const registrationRoutes = require('./routes/registrationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const googleFormRoutes = require('./routes/googleFormRoutes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/registrations', registrationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin', googleFormRoutes); // Google Form import & management
 
 // 404 Route Handler
 app.use((req, res) => {
