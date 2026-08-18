@@ -54,6 +54,9 @@ export default function Navbar() {
             <a href="/#process" className="text-sm font-medium text-slate-600 hover:text-dsdl-600 transition-colors">
               Process
             </a>
+            <a href="/#developer" className="text-sm font-medium text-slate-600 hover:text-dsdl-600 transition-colors">
+              Developer
+            </a>
           </nav>
 
           {/* Action CTAs */}
@@ -137,6 +140,13 @@ export default function Navbar() {
             className="block text-base font-semibold text-slate-800 hover:text-dsdl-600 py-2 border-b border-slate-100"
           >
             Recruitment Process
+          </a>
+          <a
+            href="/#developer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-semibold text-slate-800 hover:text-dsdl-600 py-2 border-b border-slate-100"
+          >
+            Meet the Developer
           </a>
           <div className="pt-2 flex flex-col gap-2">
             <Link

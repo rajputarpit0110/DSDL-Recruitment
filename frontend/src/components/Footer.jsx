@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, MessageSquare, ExternalLink, Heart } from 'lucide-react';
+import { Instagram, MessageSquare, ExternalLink, Heart, Github, Linkedin } from 'lucide-react';
 import { DEFAULT_INSTAGRAM_URL, DEFAULT_WHATSAPP_GROUP_URL } from '../config/recruitmentConfig';
 
 export default function Footer() {
@@ -33,6 +33,7 @@ export default function Footer() {
               <li><a href="/" className="hover:text-dsdl-300 transition-colors">Home</a></li>
               <li><a href="/#about" className="hover:text-dsdl-300 transition-colors">About DSDL</a></li>
               <li><a href="/#why-join" className="hover:text-dsdl-300 transition-colors">Why Join</a></li>
+              <li><a href="/#developer" className="hover:text-dsdl-300 transition-colors">Meet the Developer</a></li>
               <li><a href="/register" className="hover:text-dsdl-300 transition-colors">Register for Recruitment</a></li>
               <li><a href="/admin/login" className="hover:text-dsdl-300 transition-colors">Admin Login</a></li>
             </ul>
@@ -70,11 +71,32 @@ export default function Footer() {
 
         <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© 2026 DSDL Technical Club, KIET Group of Institutions. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-            <span>for KIET First-Year Students</span>
-          </p>
+          <div className="flex items-center space-x-3 text-slate-400">
+            <span className="flex items-center gap-1">
+              <span>Developed by</span>
+              <strong className="text-slate-200 font-bold">Arpit Rajput</strong>
+            </span>
+            <div className="flex items-center space-x-2">
+              <a
+                href="https://github.com/rajputarpit0110"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white transition-colors"
+                title="Arpit's GitHub"
+              >
+                <Github className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/rajputarpit0110"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-blue-400 transition-colors"
+                title="Arpit's LinkedIn"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

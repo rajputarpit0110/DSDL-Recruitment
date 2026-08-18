@@ -5,6 +5,7 @@ import {
   Terminal, Smartphone, Cpu, ShieldCheck, Palette, Cloud, Database, Network, ChevronRight
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import DeveloperSection from '../components/DeveloperSection';
 import Footer from '../components/Footer';
 import { INTEREST_OPTIONS } from '../config/recruitmentConfig';
 
@@ -290,6 +291,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* DEVELOPER SPOTLIGHT SECTION */}
+        <DeveloperSection />
 
         {/* FINAL CTA BANNER */}
         <section className="py-12 sm:py-16 bg-gradient-to-r from-dsdl-900 via-dsdl-800 to-dsdl-950 text-white text-center">
