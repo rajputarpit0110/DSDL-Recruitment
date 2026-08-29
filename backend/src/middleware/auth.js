@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
   // Check HttpOnly cookie first, then fallback to Authorization header
-  let token = req.cookies?.dsdl_admin_token;
-
-  console.log(token)
+  let token = req.cookies?.kml_admin_token || req.cookies?.dsdl_admin_token;
 
   if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
     token = req.headers.authorization.split(' ')[1];

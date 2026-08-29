@@ -41,8 +41,8 @@ export default function App() {
 
   if (authChecking) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-xs font-semibold text-slate-400">
-        Initializing DSDL Recruitment Portal...
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-xs font-semibold text-slate-400">
+        Initializing KML Recruitment Portal...
       </div>
     );
   }

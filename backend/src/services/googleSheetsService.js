@@ -30,7 +30,7 @@ async function syncToGoogleSheets() {
     const headers = [
       'Registration ID', 'Full Name', 'Roll Number', 'College Email', 
       'Phone Number', 'Branch', 'Interests', 'Technical Rating', 
-      'Why DSDL', 'WhatsApp Joined', 'Status', 'Date'
+      'Why KML', 'WhatsApp Joined', 'Status', 'Date'
     ];
 
     const rows = registrations.map(rec => [

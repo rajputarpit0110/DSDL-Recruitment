@@ -41,10 +41,10 @@ export default function AdminLoginPage({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       
       {/* Decorative ambient background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-dsdl-600/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         
@@ -57,13 +57,13 @@ export default function AdminLoginPage({ onLoginSuccess }) {
         </Link>
 
         <div className="flex justify-center mb-4">
-          <div className="w-14 h-14 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-dsdl-400 shadow-xl">
+          <div className="w-14 h-14 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center text-red-500 shadow-xl">
             <Shield className="w-8 h-8" />
           </div>
         </div>
 
         <h2 className="text-center text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-          DSDL Admin Portal
+          KML Admin Portal
         </h2>
         <p className="mt-1 text-center text-xs text-slate-400">
           KIET Group of Institutions • Recruitment Management
@@ -71,7 +71,7 @@ export default function AdminLoginPage({ onLoginSuccess }) {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-slate-800/90 border border-slate-700/80 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
+        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
           
           {error && (
             <div className="mb-6 bg-rose-950/60 border border-rose-800 text-rose-300 px-4 py-3 rounded-xl text-xs font-medium flex items-center gap-2">
@@ -96,7 +96,7 @@ export default function AdminLoginPage({ onLoginSuccess }) {
                   placeholder="Enter admin username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-dsdl-500 focus:ring-1 focus:ring-dsdl-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
                 />
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function AdminLoginPage({ onLoginSuccess }) {
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-dsdl-500 focus:ring-1 focus:ring-dsdl-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function AdminLoginPage({ onLoginSuccess }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full inline-flex items-center justify-center text-sm font-bold text-white bg-dsdl-600 hover:bg-dsdl-500 active:bg-dsdl-700 py-3.5 rounded-xl shadow-lg shadow-dsdl-600/30 transition-all gap-2"
+              className="w-full inline-flex items-center justify-center text-sm font-bold text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-red-600 active:from-red-700 active:to-red-800 disabled:opacity-50 py-3.5 rounded-xl shadow-lg shadow-red-600/30 transition-all gap-2"
             >
               {loading ? (
                 <>

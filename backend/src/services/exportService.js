@@ -10,7 +10,7 @@ function formatRegistrationRecords(records) {
     'Branch': rec.branch,
     'Interest Areas': Array.isArray(rec.interests) ? rec.interests.join(', ') : '',
     'Technical Knowledge Rating': rec.technicalRating,
-    'Why Do You Want To Join DSDL': rec.whyJoin,
+    'Why Do You Want To Join KML': rec.whyJoin,
     'WhatsApp Group Joined': rec.whatsappConfirmedByUser ? 'Yes' : 'No',
     'Application Status': rec.status,
     'Registration Date': rec.createdAt ? new Date(rec.createdAt).toLocaleString('en-IN') : ''

@@ -42,5 +42,5 @@ export const TECHNICAL_RATING_LABELS = {
   5: "Advanced — Built production or full-stack apps"
 };
 
-export const DEFAULT_WHATSAPP_GROUP_URL = import.meta.env.VITE_WHATSAPP_GROUP_URL || "https://chat.whatsapp.com/DSDLRecruitment2026";
-export const DEFAULT_INSTAGRAM_URL = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/dsdl_kiet";
+export const DEFAULT_WHATSAPP_GROUP_URL = import.meta.env.VITE_WHATSAPP_GROUP_URL || "https://chat.whatsapp.com/KMLRecruitment2026";
+export const DEFAULT_INSTAGRAM_URL = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/kml_kiet";

@@ -78,7 +78,7 @@ exports.loginAdmin = async (req, res) => {
     );
 
     // Set secure HttpOnly cookie
-    res.cookie('dsdl_admin_token', token, {
+    res.cookie('kml_admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
@@ -98,11 +98,13 @@ exports.loginAdmin = async (req, res) => {
 };
 
 exports.logoutAdmin = (req, res) => {
-  res.clearCookie('dsdl_admin_token', {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-  });
+  };
+  res.clearCookie('kml_admin_token', cookieOptions);
+  res.clearCookie('dsdl_admin_token', cookieOptions);
   return res.status(200).json({ success: true, message: 'Logged out successfully.' });
 };
 

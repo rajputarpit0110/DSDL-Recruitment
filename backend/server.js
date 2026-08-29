@@ -45,7 +45,7 @@ async function startServer() {
 
     const startListening = (port) => {
       const server = app.listen(port, () => {
-        console.log(`🚀 DSDL Recruitment Server running on http://localhost:${port}`);
+        console.log(`🚀 KML Recruitment Server running on http://localhost:${port}`);
       });
 
       server.on('error', (err) => {

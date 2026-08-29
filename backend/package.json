@@ -1,7 +1,7 @@
 {
-  "name": "dsdl-recruitment-backend",
+  "name": "kml-recruitment-backend",
   "version": "1.0.0",
-  "description": "Backend API for KIET DSDL Technical Club Recruitment Registration Portal",
+  "description": "Backend API for KIET KML Technical Club Recruitment Registration Portal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

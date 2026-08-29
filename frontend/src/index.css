@@ -16,16 +16,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #090d16;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #27303f;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #e11d2a;
 }
 
 /* Card hover glow micro-interaction */
@@ -35,5 +35,17 @@
 
 .glow-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px -10px rgba(12, 140, 233, 0.15);
+  box-shadow: 0 12px 28px -8px rgba(225, 29, 42, 0.3);
+  border-color: rgba(225, 29, 42, 0.4) !important;
+}
+
+/* 3D Beveled Metallic Red Typography matching KRIVA Logo */
+.kriva-3d-text {
+  background: linear-gradient(180deg, #ff4d58 0%, #eb1724 38%, #b80d17 65%, #66050b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 3px rgba(255, 60, 60, 0.4))
+          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
+  letter-spacing: 0.04em;
+  font-weight: 900;
 }
