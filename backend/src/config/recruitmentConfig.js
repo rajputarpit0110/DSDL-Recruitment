@@ -31,6 +31,6 @@ module.exports = {
     "Selected",
     "Rejected"
   ],
-  WHY_JOIN_MIN_LENGTH: 30,
+  WHY_JOIN_MIN_LENGTH: 0,
   WHY_JOIN_MAX_LENGTH: 500
 };

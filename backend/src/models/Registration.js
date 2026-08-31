@@ -80,13 +80,7 @@ const registrationSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: '',
-    validate: {
-      validator: function(value) {
-        const trimmed = typeof value === 'string' ? value.trim() : '';
-        return trimmed.length === 0 || (trimmed.length >= WHY_JOIN_MIN_LENGTH && trimmed.length <= WHY_JOIN_MAX_LENGTH);
-      },
-      message: `Motivation must be between ${WHY_JOIN_MIN_LENGTH} and ${WHY_JOIN_MAX_LENGTH} characters when provided`
-    }
+    maxlength: [WHY_JOIN_MAX_LENGTH, `Motivation cannot exceed ${WHY_JOIN_MAX_LENGTH} characters`]
   },
   whatsappConfirmedByUser: {
     type: Boolean,

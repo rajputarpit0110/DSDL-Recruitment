@@ -135,14 +135,8 @@ exports.submitRegistration = async (req, res) => {
       });
     }
 
-    // Why Join motivation validation — optional, but if provided it must meet the length rules
+    // Why Join motivation validation — optional (no minimum limit, max limit enforced)
     const trimmedWhyJoin = typeof whyJoin === 'string' ? whyJoin.trim() : '';
-    if (trimmedWhyJoin && trimmedWhyJoin.length < WHY_JOIN_MIN_LENGTH) {
-      return res.status(400).json({
-        success: false,
-        message: `Please explain why you want to join DSDL (at least ${WHY_JOIN_MIN_LENGTH} characters).`
-      });
-    }
     if (trimmedWhyJoin && trimmedWhyJoin.length > WHY_JOIN_MAX_LENGTH) {
       return res.status(400).json({
         success: false,

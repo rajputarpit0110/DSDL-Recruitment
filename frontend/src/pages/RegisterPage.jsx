@@ -112,9 +112,7 @@ export default function RegisterPage() {
     }
 
     const whyLength = formData.whyJoin.trim().length;
-    if (formData.whyJoin.trim() && whyLength < 30) {
-      newErrors.whyJoin = `Please write at least 30 characters (currently ${whyLength}/30).`;
-    } else if (whyLength > 500) {
+    if (whyLength > 500) {
       newErrors.whyJoin = `Motivation message cannot exceed 500 characters (currently ${whyLength}/500).`;
     }
 
@@ -459,7 +457,7 @@ export default function RegisterPage() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label htmlFor="whyJoin" className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-                    Why do you want to join KML? <span className="text-rose-500">*</span>
+                    Why do you want to join KML? <span className="text-slate-500 font-normal normal-case">(Optional)</span>
                   </label>
                   <span className={`text-xs font-semibold ${formData.whyJoin.trim().length > 500 ? 'text-rose-400' : 'text-slate-500'
                     }`}>
