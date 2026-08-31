@@ -78,7 +78,7 @@ const registrationSchema = new mongoose.Schema({
   },
   whyJoin: {
     type: String,
-    required: [true, 'Motivation text is required'],
+    required: [false, 'Motivation text is required'],
     trim: true,
     minlength: [WHY_JOIN_MIN_LENGTH, `Motivation must be at least ${WHY_JOIN_MIN_LENGTH} characters`],
     maxlength: [WHY_JOIN_MAX_LENGTH, `Motivation cannot exceed ${WHY_JOIN_MAX_LENGTH} characters`]
