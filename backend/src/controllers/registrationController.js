@@ -135,9 +135,20 @@ exports.submitRegistration = async (req, res) => {
       });
     }
 
-    // Why Join motivation
-    // No minimum or maximum character/word limit
-    const trimmedWhyJoin = whyJoin ? whyJoin.trim() : '';
+    // Why Join motivation validation — optional, but if provided it must meet the length rules
+    const trimmedWhyJoin = typeof whyJoin === 'string' ? whyJoin.trim() : '';
+    if (trimmedWhyJoin && trimmedWhyJoin.length < WHY_JOIN_MIN_LENGTH) {
+      return res.status(400).json({
+        success: false,
+        message: `Please explain why you want to join DSDL (at least ${WHY_JOIN_MIN_LENGTH} characters).`
+      });
+    }
+    if (trimmedWhyJoin && trimmedWhyJoin.length > WHY_JOIN_MAX_LENGTH) {
+      return res.status(400).json({
+        success: false,
+        message: `Motivation message cannot exceed ${WHY_JOIN_MAX_LENGTH} characters.`
+      });
+    }
 
     // Generate unique Registration ID with collision avoidance
     let registrationId = generateRegistrationId();

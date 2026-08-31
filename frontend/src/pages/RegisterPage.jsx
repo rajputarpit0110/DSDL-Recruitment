@@ -112,7 +112,7 @@ export default function RegisterPage() {
     }
 
     const whyLength = formData.whyJoin.trim().length;
-    if (whyLength < 30) {
+    if (formData.whyJoin.trim() && whyLength < 30) {
       newErrors.whyJoin = `Please write at least 30 characters (currently ${whyLength}/30).`;
     } else if (whyLength > 500) {
       newErrors.whyJoin = `Motivation message cannot exceed 500 characters (currently ${whyLength}/500).`;
